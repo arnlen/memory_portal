@@ -1,0 +1,98 @@
+$card_size: 100px;
+$card_space: 3px;
+
+// Overrinded classes
+
+.jumbotron {
+	padding-top: 10px;
+
+	h1 {
+		margin-bottom: 30px;
+	}
+}
+
+// ---- End overrinded classes
+
+.memory-row {
+	text-align: center;
+	margin-top: $card_space;
+	height: $card_size;
+
+	.memory-card-container {
+		width: $card_size;
+		height: $card_size;
+		margin-left: $card_space;
+		display: inline-block;
+		cursor: pointer;
+		position: relative;
+
+		.card {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			padding-top: 40%;
+			font-weight: bold;
+
+			transition: all 0.5s ease;
+
+			&.face {
+				background: url("../images/question-mark-nebula.jpg") no-repeat;
+				background-position: center;
+				background-size: 100%;
+				backface-visibility: hidden;
+				transform: rotateY(0deg);
+
+				&:hover {
+					box-shadow: 1px 1px 20px 10px white;
+					z-index: 10;
+				}
+
+				&.flipped, &.found {
+					transform: rotateY(180deg);
+				}
+			}
+
+			&.back {
+				background-color: white;
+				backface-visibility: hidden;
+				transform: rotateY(180deg);
+
+				&.flipped, &.found {
+					transform: rotateY(0deg);
+				}
+
+				&.found {
+					background-color: green;
+					color: white;
+					font-weight: normal;
+				}
+			}
+
+		}
+	}
+}
+
+// VICTORY SCREEN
+.great-success {
+	position: absolute;
+	background-color: gray;
+	top: 30%;
+	left: 30%;
+	width: 50%;
+	text-align: center;
+	opacity: 0.2;
+	transform: rotateZ(0deg) scale(0);
+	box-shadow: 10px 10px 30px 0px black;
+	max-width: 550px;
+
+	transition: all 2s ease;
+
+	img {
+		width: 100%;
+	}
+
+	&.visible {
+		transform: rotateZ(380deg) scale(1);
+		opacity: 1;
+	}
+}
