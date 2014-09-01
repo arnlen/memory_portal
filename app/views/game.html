@@ -1,13 +1,17 @@
 <div class="memory-row" ng-repeat="row in board">
-  <div class="memory-card-container" ng-repeat="card in row.cards" ng-click="flip(card)">
-    <div class="card face" ng-class="{flipped: card.flipped, found: card.found}">
+  <div class="memory-card-container" ng-repeat="card in row" ng-click="flip(card)">
+  	<div class="card face" ng-class="{ 'flipped': card.flipped, found: card.found }"></div>
+    <div class="card back" ng-class="{ 'flipped': card.flipped, found: card.found }">
     	<img ng-src="../images/{{ card.image }}">
     </div>
-    <div class="card back" ng-class='{flipped: card.flipped, found: card.found}'>{{ card.name }}</div>
   </div>
 </div>
 
-<div class="great-success">
+<div class="cards_left">
+	<p>{{ game.cards_left }} cards left</p>
+</div>
+
+<div class="great-success" ng-class="{ 'visible': game.victory }">
 	<h2>Victory! Here is your reward</h2>
 	<img src="../images/cake_face.jpg">
 </div>

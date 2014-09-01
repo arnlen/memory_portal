@@ -36,7 +36,7 @@ $card_space: 3px;
 			transition: all 0.5s ease;
 
 			&.face {
-				background: url("../images/question-mark-nebula.jpg") no-repeat;
+				background: url("../images/aperture_labs_200x200.jpg") no-repeat;
 				background-position: center;
 				background-size: 100%;
 				backface-visibility: hidden;
@@ -57,14 +57,15 @@ $card_space: 3px;
 				backface-visibility: hidden;
 				transform: rotateY(180deg);
 
-				&.flipped, &.found {
-					transform: rotateY(0deg);
+				img {
+					width: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
 				}
 
-				&.found {
-					background-color: green;
-					color: white;
-					font-weight: normal;
+				&.flipped, &.found {
+					transform: rotateY(0deg);
 				}
 			}
 
@@ -95,4 +96,9 @@ $card_space: 3px;
 		transform: rotateZ(380deg) scale(1);
 		opacity: 1;
 	}
+}
+
+// Card left
+.cards_left {
+	margin: 20px 0 -30px;
 }

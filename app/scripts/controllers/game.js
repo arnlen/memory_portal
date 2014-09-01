@@ -1,10 +1,11 @@
-'use string'
+'use strict';
 
-app.controller("GameController", function ($scope, Board) {
+app.controller("GameController", function ($scope, Board, Game) {
 
   var initialize = function() {
     $scope.flippedCards = [];
     $scope.board = Board;
+    $scope.game = Game;
   };
 
   $scope.flip = function(card) {
@@ -18,7 +19,7 @@ app.controller("GameController", function ($scope, Board) {
     }
 
     // Add the flipped card to the array
-    if (card.flipped === false) {
+    if (card.flipped != true) {
       $scope.flippedCards.push(card.name);
 
       // Flip the card
@@ -29,9 +30,9 @@ app.controller("GameController", function ($scope, Board) {
     // Remove from the array
     } else {
       if ($scope.flippedCards[0] === card.name) {
-        $scope.flippedCards[0] = null;
+        $scope.flippedCards.shift();
       } else {
-        $scope.flippedCards[1] = null;
+        $scope.flippedCards.pop();
       }
       // Unflip the card
       card.flipped = false;
@@ -41,30 +42,37 @@ app.controller("GameController", function ($scope, Board) {
 
     // Check if two cards are now flipped
     if ($scope.flippedCards.length === 2) {
+
       // Are the two card flipped the same?
       if ($scope.flippedCards[0] === $scope.flippedCards[1]) {
-        console.log("Found!");
         // Mark the two cards has found
         angular.forEach($scope.board, function(row, key) {
-          angular.forEach(row.cards, function(card, key) {
+          angular.forEach(row, function(card, key) {
             if (card.flipped === true) {
               card.found = true;
-              console.log("Card name: " + card.name);
+              $scope.game.cards_found++;
+              $scope.game.cards_left--;
             }
           });
         });
+
       } else {
         console.log("Try again...");
       }
     }
+
+    // Check if you win
+    if ($scope.game.cards_left <= 0) {
+      $scope.game.victory = true;
+      console.log("Victory! Game over. :)");
+    }
+
   };
 
   var resetCards = function() {
-    console.log("called");
-
     // Reset every flipped cards not yet found
     angular.forEach($scope.board, function(row, key) {
-      angular.forEach(row.cards, function(card, key) {
+      angular.forEach(row, function(card, key) {
         card.flipped = false;
       });
     });
